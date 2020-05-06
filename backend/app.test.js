@@ -40,28 +40,28 @@ describe('MessageApp', () => {
   });
 
   it("id's are always unique", () => {
-    testApp.post('1')
-    testApp.post('2')
-    testApp.delete(1)
-    testApp.post('3')
-    expect(testApp.messages[1].id).to.equal(3)
+    testApp.post('1');
+    testApp.post('2');
+    testApp.delete(1);
+    testApp.post('3');
+    expect(testApp.messages[1].id).to.equal(3);
   });
 
   it("app deletes correctly", () => {
-    testApp.post('1')
-    testApp.post('2')
-    testApp.post('3')
-    testApp.delete(0)
-    testApp.delete(2)
-    expect(testApp.get(1).id).to.equal(1)
+    testApp.post('1');
+    testApp.post('2');
+    testApp.post('3');
+    testApp.delete(0);
+    testApp.delete(2);
+    expect(testApp.get(1).id).to.equal(1);
   });
 
   it("app updates correctly", () => {
-    testApp.post('1')
-    testApp.post('2')
-    testApp.delete(1)
-    testApp.update(2, 'update')
-    expect(testApp.get(2).content).to.equal('update')
+    testApp.post('1');
+    testApp.post('2');
+    testApp.delete(1);
+    testApp.update(2, 'update');
+    expect(testApp.get(2).content).to.equal('update');
   });
 
 });

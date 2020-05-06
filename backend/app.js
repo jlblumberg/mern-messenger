@@ -27,8 +27,8 @@ class MessageApp {
 
   // D
   delete(id) {
-    this.messages = this.messages.filter(message => message.id != id)
-    return this.messages
+    this.messages = this.messages.filter(message => message.id != id);
+    return this.messages;
   };
 
 };
@@ -37,7 +37,7 @@ const newId = (array) => {
   if (array.length > 0) {
     return array[array.length - 1].id + 1;
   } else {
-    return 1
+    return 1;
   };
 };
 
