@@ -13,6 +13,12 @@ class MessageApp {
     this.messages.push(item);
     return this.messages;
   };
+
+  // R in CRUD
+  get(id) {
+    return this.messages[id];
+  };
+  
 };
 
 export default MessageApp

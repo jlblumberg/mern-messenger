@@ -7,6 +7,7 @@ describe('MessageApp', () => {
 
   beforeEach(() => {
     testApp = new MessageApp;
+    testApp.post('Hello, World');
   });
 
   it('has messages', () => {
@@ -14,14 +15,17 @@ describe('MessageApp', () => {
   });
 
   it('can make a most', () => {
-    testApp.post('Hello, World')
-    expect(testApp.messages.length).to.equal(1)
+    testApp.post('Hello, World, Again');
+    expect(testApp.messages.length).to.equal(2);
   });
 
   it('posts have content, date, and id', () => {
-    testApp.post('Hello, World')
     expect(testApp.messages[0].content).to.equal('Hello, World');
     expect(testApp.messages[0].date).not.to.equal(undefined);
     expect(testApp.messages[0].id).to.equal(0);
   });
+
+  it('can read posts', () => {
+    expect(testApp.get(0).content).to.equal('Hello, World');
+  })
 });
