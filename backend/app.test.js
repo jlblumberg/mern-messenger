@@ -14,7 +14,7 @@ describe('MessageApp', () => {
     expect(testApp.messages).to.be.an('array');
   });
 
-  it('can make a most', () => {
+  it('can make a post', () => {
     testApp.post('Hello, World, Again');
     expect(testApp.messages.length).to.equal(2);
   });
@@ -33,5 +33,10 @@ describe('MessageApp', () => {
     testApp.update(0, 'Hi, World');
     expect(testApp.messages[0].content).to.equal('Hi, World');
   });
-  
+
+  it('can delete posts', () => {
+    testApp.delete(0);
+    expect(testApp.messages.length).to.equal(0);
+  });
+
 });

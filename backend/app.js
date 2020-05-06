@@ -14,15 +14,21 @@ class MessageApp {
     return this.messages;
   };
 
-  // R in CRUD
+  // R
   get(id) {
     return this.messages[id];
   };
 
-  // U in CRUD
+  // U
   update(id, updatedContent) {
     this.messages[id].content = updatedContent;
     return this.messages[id];
+  };
+
+  // D
+  delete(id) {
+    this.messages.splice(id - 1, 1);
+    return this.messages;
   };
 
 };
