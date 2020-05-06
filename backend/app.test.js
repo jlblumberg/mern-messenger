@@ -27,5 +27,11 @@ describe('MessageApp', () => {
 
   it('can read posts', () => {
     expect(testApp.get(0).content).to.equal('Hello, World');
-  })
+  });
+
+  it('can update posts', () => {
+    testApp.update(0, 'Hi, World');
+    expect(testApp.messages[0].content).to.equal('Hi, World');
+  });
+  
 });

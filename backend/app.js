@@ -18,7 +18,13 @@ class MessageApp {
   get(id) {
     return this.messages[id];
   };
-  
+
+  // U in CRUD
+  update(id, updatedContent) {
+    this.messages[id].content = updatedContent;
+    return this.messages[id];
+  };
+
 };
 
 export default MessageApp
