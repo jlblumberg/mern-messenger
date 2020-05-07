@@ -1,7 +1,18 @@
+import fs from 'fs';
+
 class MessageApp {
-  constructor() {
-    this.messages = [];
+  constructor(filepath) {
+    this.filepath = filepath
+    this.messages = filepath ? this.readFromJson() : []
   };
+
+  readFromJson() {
+    return JSON.parse(fs.readFileSync(
+      __dirname + this.filepath, "utf8", (err, data) => {
+      if (err) throw err
+      })
+    )
+  }
 
   // C in CRUD
   post(content) {

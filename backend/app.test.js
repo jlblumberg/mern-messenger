@@ -64,4 +64,9 @@ describe('MessageApp', () => {
     expect(testApp.get(2).content).to.equal('update');
   });
 
+  it('reads from a given filepath', () => {
+    let testAppWithFile = new MessageApp('/json/testMessages.json');
+    expect(testAppWithFile.messages.length).to.equal(1)
+  });
+
 });
