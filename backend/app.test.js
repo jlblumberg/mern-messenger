@@ -84,4 +84,24 @@ describe('MessageApp', () => {
     expect(testAppFileCleared.messages.length).to.equal(0);
   });
 
+  it("rejects empty messages", () => {
+    let testApp = new MessageApp();
+    expect(testApp.post('')).to.deep.equal([]);
+  });
+
+  it("has no messages if no messages are posted", () => {
+    let testApp = new MessageApp();
+    expect(testApp.getAll()).to.deep.equal([]);
+  });
+
+  it("rejects an attempt to update a non-existent post", () => {
+    let testApp = new MessageApp();
+    expect(testApp.update(0, "")).to.deep.equal([]);
+  });
+
+  it("errors if there is no such message to delete", () => {
+    let testApp = new MessageApp();
+    expect(testApp.delete(0)).to.deep.equal('Message not found in database');
+  });
+
 });

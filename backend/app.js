@@ -25,14 +25,17 @@ class MessageApp {
 
   // C in CRUD
   post(content) {
-    let item = {
-      id: newId(this.messages),
-      content: content,
-      date: new Date()
+    if (content) {
+      this.messages.push({
+        content: content,
+        date: new Date(),
+        id: newId(this.messages)
+      });
+      this.writeToJson();
+      return this.messages;
+    } else if (!content) {
+      return [];
     };
-    this.messages.push(item);
-    this.writeToJson();
-    return this.messages;
   };
 
   // R
@@ -47,16 +50,25 @@ class MessageApp {
   // U
   update(id, updatedContent) {
     let index = this.messages.findIndex(message => message.id === id);
-    this.messages[index].content = updatedContent;
-    this.writeToJson();
-    return this.messages;
+    if (index >= 0) {
+      this.messages[index].content = updatedContent;
+      this.writeToJson();
+      return this.messages;
+    } else {
+      return [];
+    };
   };
 
   // D
   delete(id) {
-    this.messages = this.messages.filter(message => message.id != id);
-    this.writeToJson();
-    return this.messages;
+    let index = this.messages.findIndex(message => message.id == id);
+    if (index >= 0) {
+      this.messages.splice(index, 1);
+      this.writeToJson();
+      return this.messages;
+    } else {
+      return "Message not found in database";
+    };
   };
 
 };
