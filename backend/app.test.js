@@ -64,9 +64,19 @@ describe('MessageApp', () => {
     expect(testApp.get(2).content).to.equal('update');
   });
 
-  it('reads from a given filepath', () => {
-    let testAppWithFile = new MessageApp('/json/testMessages.json');
-    expect(testAppWithFile.messages.length).to.equal(1)
+  it('writes to a given filepath', () => {
+    let testAppFileWrite = new MessageApp('/json/testMessages.json');
+    expect(testAppFileWrite.messages.length).to.equal(0);
+
+    testAppFileWrite.post('Hi');
+    expect(testAppFileWrite.messages.length).to.equal(1);
+
+    let testAppFileRead = new MessageApp('/json/testMessages.json');
+    expect(testAppFileRead.messages.length).to.equal(1);
+
+    testAppFileRead.delete(1)
+    let testAppFileCleared = new MessageApp('/json/testMessages.json');
+    expect(testAppFileCleared.messages.length).to.equal(0);
   });
 
 });
