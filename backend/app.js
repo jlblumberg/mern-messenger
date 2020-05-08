@@ -44,7 +44,7 @@ class MessageApp {
   };
 
   getAll() {
-    return this.messages
+    return this.messages;
   };
 
   // U
