@@ -1,3 +1,5 @@
+import MessageApp from './model';
+
 let messageApp;
 
 if (process.env.npm_lifecycle_event == "test") {
@@ -5,8 +7,6 @@ if (process.env.npm_lifecycle_event == "test") {
 } else {
   messageApp = new MessageApp('/json/messages.json');
 };
-
-import MessageApp from './model.js';
 
 function getAll() {
   return new Promise((resolve, reject) => {
@@ -19,6 +19,30 @@ function getAll() {
   });
 };
 
+function post(content) {
+  return new Promise((resolve, reject) => {
+    let message = messageApp.post(content);
+    if (message !== []) {
+      resolve(message);
+    } else {
+      reject(message);
+    };
+  });
+};
+
+function deleteMessage(id) {
+  return new Promise((resolve, reject) => {
+    let result = messageApp.delete(id)
+    if (result !== 'Message not found in database') {
+      resolve(result);
+    } else {
+      reject(result);
+    };
+  });
+};
+
 module.exports = {
-  getAll
+  getAll,
+  post,
+  deleteMessage
 }
