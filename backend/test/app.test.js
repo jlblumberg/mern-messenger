@@ -2,11 +2,17 @@ import request from 'supertest';
 import { expect } from 'chai';
 import MessageApp from '../app.js';
 
-describe('Hello world test', () => {
-  it('first test', (done) => {
+describe('Message API', () => {
+  it.only('gets info from backend messages', (done) => {
     const res = request(MessageApp).get('/');
 
-    res.expect({ val: 'Hello, World.' });
-    res.expect(200, done);
+    res.expect(200)
+    .end((err, res) => {
+      if (err) {
+        return done(err);
+      }
+      expect(res.body.length).to.equal(1);
+      done();
+    })
   });
 });
