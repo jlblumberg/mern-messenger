@@ -4,6 +4,7 @@ import MessageApp from '../app.js'
 
 describe('MessageApp Tests', () => {
   let data;
+
   it('posts a message', (done) => {
     data = {
       content: 'Hi world'
@@ -24,19 +25,6 @@ describe('MessageApp Tests', () => {
       });
   }); 
 
-  it("gets a single message", done => {
-    const res = request(MessageApp)
-      .get("/message/1")
-    res.expect(200)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        };
-        expect(res.body[0].content).to.equal('Hi world');
-        done();
-      });
-  });
-
   it('gets all messages', (done) => {
     const res = request(MessageApp).get('/');
     res.expect(200)
@@ -51,23 +39,35 @@ describe('MessageApp Tests', () => {
       });
   });
 
-  it('updates a message', done => {
+  it('gets a single message', (done) => {
+    const res = request(MessageApp).get('/message/1')
+    res.expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.id).to.equal(1)
+        done()
+      })
+  })
+
+  it('updates a message', (done) => {
     data = {
       content: 'Hello World'
     }
     const res = request(MessageApp)
       .put('/update/1')
       .send(data)
-      .set('Accept', 'application/json');
+      .set('Accept', 'application/json')
     res.expect(200)
       .end((err, res) => {
         if (err) {
-          return done(err);
-        };
-        expect(res.body[0].content).to.equal('Hello World');
-        done();
-      });
-  });
+          return done(err)
+        }
+        expect(res.body[0].content).to.equal('Hello World')
+        done()
+      })
+  })
 
   it('deletes a message', (done) => {
       const res = request(MessageApp)
@@ -83,3 +83,86 @@ describe('MessageApp Tests', () => {
         });
     });
 });
+
+describe("message api errors correctly", () => {
+  let data;
+  it('posts a message errors', done => {
+    data = {
+      content: ""
+    };
+    const res = request(MessageApp)
+      .post('/message')
+      .send(data)
+      .set('Accept', 'application/json')
+    res.expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+        expect(res.body).to.equal("You can't post an empty message")
+        done()
+      })
+  })
+
+  it('gets all errors when no messages', done => {
+    const res = request(MessageApp)
+      .get('/')
+    res.expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+        expect(res.body).to.equal('No messages in database')
+        done()
+      })
+  })
+
+  it('errors if cant find single message', done => {
+    const res = request(MessageApp)
+      .get('/message/1')
+    res.expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+        expect(res.body).to.equal('No messages in database')
+        done()
+      })
+  })
+
+  it('errors on bad update', done => {
+    data = {
+      content: 'Hello World'
+    }
+    const res = request(MessageApp)
+      .put('/update/0')
+      .send(data)
+      .set('Accept', 'application/json')
+    res.expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+        expect(res.body).to.equal('You can\'t post an empty message')
+        done()
+      })
+  })
+
+  it("errors deleting message that doesn't exist", done => {
+    data = {
+      id: 0
+    };
+    const res = request(MessageApp)
+      .delete('/delete/0')
+      .send(data)
+      .set('Accept', 'application/json')
+    res.expect(404)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+        expect(res.body).to.equal('Message not found in database')
+        done()
+      })
+  })
+})

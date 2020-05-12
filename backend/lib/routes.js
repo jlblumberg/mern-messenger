@@ -14,14 +14,14 @@ router.post('/message', async(req, res) => {
     .catch((err) => res.status(404).json(err));
 })
 
-router.delete('/delete/:id', async (req, res) => {
-  await messageApp.deleteMessage(req.params.id)
+router.get('/message/:id', async (req, res) => {
+  await messageApp.getSingleMessage(req.params.id)
     .then((messages) => res.json(messages))
     .catch((err) => res.status(404).json(err))
 })
 
-router.get('/message/:id', async (req, res) => {
-  await messageApp.getSingleMessage(req.params.id)
+router.delete('/delete/:id', async (req, res) => {
+  await messageApp.deleteMessage(req.params.id)
     .then((messages) => res.json(messages))
     .catch((err) => res.status(404).json(err))
 })

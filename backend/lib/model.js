@@ -40,7 +40,7 @@ class MessageApp {
 
   // R
   get(id) {
-    return this.messages.filter(message => message.id === id)[0];
+    return this.messages.filter(message => message.id == id)[0];
   };
 
   getAll() {
@@ -49,7 +49,7 @@ class MessageApp {
 
   // U
   update(id, updatedContent) {
-    let index = this.messages.findIndex(message => message.id === id);
+    let index = this.messages.findIndex(message => message.id == id);
     if (index >= 0) {
       this.messages[index].content = updatedContent;
       this.writeToJson();
@@ -59,15 +59,16 @@ class MessageApp {
     };
   };
 
+
   // D
   delete(id) {
     let index = this.messages.findIndex(message => message.id == id);
     if (index >= 0) {
-      this.messages.splice(index, 1);
+      this.messages = this.messages.filter(message => message.id != id);
       this.writeToJson();
       return this.messages;
     } else {
-      return "Message not found in database";
+      return 'Message not found in database';
     };
   };
 
