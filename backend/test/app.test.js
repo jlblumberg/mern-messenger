@@ -24,6 +24,19 @@ describe('MessageApp Tests', () => {
       });
   }); 
 
+  it("gets a single message", done => {
+    const res = request(MessageApp)
+      .get("/message/1")
+    res.expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        };
+        expect(res.body[0].content).to.equal('Hi world');
+        done();
+      });
+  });
+
   it('gets all messages', (done) => {
     const res = request(MessageApp).get('/');
     res.expect(200)
@@ -34,6 +47,24 @@ describe('MessageApp Tests', () => {
         expect(res.body.length).to.equal(1);
         expect(res.body[0].id).to.equal(1);
         expect(res.body[0].content).to.equal('Hi world');
+        done();
+      });
+  });
+
+  it('updates a message', done => {
+    data = {
+      content: 'Hello World'
+    }
+    const res = request(MessageApp)
+      .put('/update/1')
+      .send(data)
+      .set('Accept', 'application/json');
+    res.expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        };
+        expect(res.body[0].content).to.equal('Hello World');
         done();
       });
   });
