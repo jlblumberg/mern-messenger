@@ -23,4 +23,8 @@ describe('App', () => {
     expect(component.exists('button#submit')).toBe(true);
   });
 
+  it('has a message list', () => {
+    expect(component.exists('ul#message_list')).toBe(true);
+  });
+
 })

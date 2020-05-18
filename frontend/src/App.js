@@ -6,6 +6,7 @@ function MessageApp() {
       <textarea id='message_box'></textarea>
       <br/>
       <button type='submit' name='submit' id='submit'>Submit</button>
+      <ul id='message_list'>message</ul>
     </div>
   );
 }
