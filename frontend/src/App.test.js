@@ -17,6 +17,10 @@ describe('App', () => {
 
   it('has a text box', () => {
     expect(component.exists('textarea#message_box')).toBe(true);
-  })
+  });
+
+  it('has a submit button', () => {
+    expect(component.exists('button#submit')).toBe(true);
+  });
 
 })
