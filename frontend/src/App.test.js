@@ -15,4 +15,8 @@ describe('App', () => {
     expect(component).toMatchSnapshot();
   });
 
+  it('has a text box', () => {
+    expect(component.exists('textarea#message_box')).toBe(true);
+  })
+
 })
