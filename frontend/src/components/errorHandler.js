@@ -2,7 +2,11 @@ import React from 'react';
 
 class ErrorHandler extends React.Component {
   render() {
-    return null
+    let result;
+    if (this.props.error) {
+      result = `Error: ${this.props.error.response.data}`
+    }
+    return <div id='error'>{result}</div>
   }
 }
 

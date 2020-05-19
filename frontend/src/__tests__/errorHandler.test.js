@@ -11,5 +11,12 @@ describe('Error', () => {
   it('renders correctly', () => {
     const component = mount(<ErrorHandler/>);
     expect(component).toMatchSnapshot();
-  })
+  });
+
+  it('is empty when there is no error', () => {
+    const component = shallow(<ErrorHandler/>)
+    expect(component.find('#error').text()).toBe('')
+  });
+
+  
 })
