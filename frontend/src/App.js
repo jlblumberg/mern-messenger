@@ -4,12 +4,31 @@ import MessageList from './components/messageList';
 import axios from 'axios';
 const PORT = 'http://localhost:3000';
 
-class MessageApp extends React.Component {
+class MessageApp extends Component {
+  constructor() {
+    super();
+    this.state = {
+      messages: []
+    };
+  }
+
+  componentDidMount() {
+    this.getAllMessages();
+  }
+
+  getAllMessages = () => {
+    axios.get(`${PORT}/`)
+    .then((result) => {
+      this.setState({
+        messages: result.data
+      })
+    })
+  }
 
   submitMessage = (data) => {
     axios.post(`${PORT}/message`, {
       content: data
-    });
+    })
   }
 
   render() {

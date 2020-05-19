@@ -31,7 +31,7 @@ class MessageForm extends React.Component {
           value={this.state.currentMessage}
           id='message_box'>
         </textarea>
-        <br />
+        <br/>
         <button
           type="submit"
           name="Submit"

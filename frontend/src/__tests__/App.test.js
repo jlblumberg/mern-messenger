@@ -19,6 +19,7 @@ describe('App', () => {
 
   afterEach(() => {
     mockAxios.post.mockClear();
+    mockAxios.get.mockClear()
   });
 
   it('renders correctly', () => {
@@ -42,6 +43,11 @@ describe('App', () => {
     component.find('form').simulate('submit');
     expect(mockAxios.post).toHaveBeenCalledWith("http://localhost:3000/message", { "content": "Hello" } );
     expect(component.instance().refs.messageFormRef.state.currentMessage).toEqual('');
+  });
+
+  it('loads data from API', () => {
+    mount(<MessageApp />);
+    expect(mockAxios.get).toHaveBeenCalledTimes(1)
   });
 
 })
