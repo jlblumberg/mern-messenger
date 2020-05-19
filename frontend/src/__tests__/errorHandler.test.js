@@ -18,5 +18,9 @@ describe('Error', () => {
     expect(component.find('#error').text()).toBe('')
   });
 
-  
+  it('displays with error', async () => {
+    const component = mount(<ErrorHandler error={{ data: errorMock }} />);
+    await component.update()
+    expect(component.find('#error').text()).toBe("Error: error text for mock");
+  });
 })
