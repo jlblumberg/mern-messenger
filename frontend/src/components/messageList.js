@@ -6,12 +6,12 @@ class MessageList extends React.Component {
       return(
         <ul id='message_list'>
         {this.props.messages.map(message => {
-          return <li
-            className='message'
-            key={message.id}>
-              {message.content}
-              <br/>
-              {message.date}
+          return <li key={message.id}>
+            {message.content}
+            <br/>
+            {message.date}
+            <br/>
+            <button id='delete'>delete</button>
           </li>
         })}
         </ul>)
