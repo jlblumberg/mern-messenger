@@ -11,37 +11,40 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('App', () => {
 
-  const component = mount(<MessageApp />);
-
-  beforeEach(() => {
+  beforeEach(function () {
     mockAxios.post.mockImplementation(() =>
-      Promise.resolve({ data: [] }));
+      Promise.resolve({ data: [] }))
     mockAxios.get.mockImplementation(() =>
-      Promise.resolve({ data: [{ id: 1, content: 'hello', date: '2000' }] }));
-  });
-
-  afterEach(() => {
-    mockAxios.post.mockClear();
-    mockAxios.get.mockClear();
-  });
+      Promise.resolve({ data: [{ id: 1, content: 'hello', date: '2000' }] })
+    )
+  })
+  afterEach(function () {
+    mockAxios.post.mockClear()
+    mockAxios.get.mockClear()
+  })
 
   it('renders correctly', () => {
+    const component = mount(<MessageApp />);
     expect(component).toMatchSnapshot();
   });
 
   it('has a text box', () => {
+    const component = mount(<MessageApp />);
     expect(component.exists('textarea#message_box')).toBe(true);
   });
 
   it('has a submit button', () => {
+    const component = mount(<MessageApp />);
     expect(component.exists('button#submit')).toBe(true);
   });
 
   it('has a message list', () => {
+    const component = mount(<MessageApp />);
     expect(component.exists('ul#message_list')).toBe(true);
   });
 
   it('posts data and clears message box on submit', () => {
+    const component = mount(<MessageApp />);
     component.find('textarea#message_box').simulate('change', { target: { value: 'Hello'} } );
     component.find('form').simulate('submit');
     expect(mockAxios.post).toHaveBeenCalledWith("http://localhost:3000/message", { "content": "Hello" } );

@@ -61,7 +61,9 @@ class MessageApp extends Component {
           ref='messageFormRef'
           submitMessage={this.submitMessage}
         />
-        <MessageList/>
+        <MessageList
+          messages={this.state.messages}
+        />
       </div>
     );
   }
