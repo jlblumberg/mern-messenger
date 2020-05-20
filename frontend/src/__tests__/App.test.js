@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MessageApp from '../App';
 import mockAxios from '../__mocks__/axios.js'
+import errorMock from '../__mocks__/error.json'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { mount } from 'enzyme';
@@ -15,11 +16,13 @@ describe('App', () => {
   beforeEach(() => {
     mockAxios.post.mockImplementation(() =>
       Promise.resolve({ data: [] }));
+    mockAxios.get.mockImplementation(() =>
+      Promise.resolve({ data: [{ id: 1, content: 'hello', date: '2000' }] }));
   });
 
   afterEach(() => {
     mockAxios.post.mockClear();
-    mockAxios.get.mockClear()
+    mockAxios.get.mockClear();
   });
 
   it('renders correctly', () => {
@@ -49,5 +52,38 @@ describe('App', () => {
     mount(<MessageApp />);
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
   });
-
 })
+
+describe('App', () => {
+
+  beforeEach(() => {
+    mockAxios.post.mockImplementation(() =>
+      Promise.reject({ data: errorMock }));
+    mockAxios.get.mockImplementation(() =>
+      Promise.reject({ data: errorMock }));
+  });
+
+  afterEach(() => {
+    mockAxios.post.mockClear();
+    mockAxios.get.mockClear();
+  });
+
+  it('loads err on GET err', async () => {
+    const component = await mount(<MessageApp />);
+    await component.update();
+    expect(mockAxios.get).toHaveBeenCalledTimes(1);
+    expect(component.state().error).toEqual({ data: "error text for mock" });
+    expect(component.find('#error').text()).toBe('Error: error text for mock');
+  });
+
+  it('loads err on POST err', async () => {
+    const component = mount(<MessageApp />);
+    component.find('textarea#message_box').simulate('change', { target: { value: 'bad string' } });
+    await component.find('form').simulate('submit');
+    await component.update();
+    expect(mockAxios.post).toHaveBeenCalledTimes(1);
+    expect(component.state().error).toEqual({ data: "error text for mock" });
+    expect(component.find('#error').text()).toBe('Error: error text for mock');
+  });
+  
+});
