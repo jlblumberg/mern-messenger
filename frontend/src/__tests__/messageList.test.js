@@ -26,4 +26,6 @@ describe('List', () => {
     />);
     expect(component.find('ul#message_list').childAt(0).exists('button#delete')).toBe(true);
   });
+
+  
 })
