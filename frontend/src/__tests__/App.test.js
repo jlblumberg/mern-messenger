@@ -52,7 +52,7 @@ describe('App', () => {
     component.find('textarea#message_box').simulate('change', { target: { value: 'Hello'} } );
     component.find('form').simulate('submit');
     expect(mockAxios.post).toHaveBeenCalledWith("http://localhost:3000/message", { "content": "Hello" } );
-    expect(component.instance().refs.messageFormRef.state.currentMessage).toEqual('');
+    expect(component.instance().messageFormRef.current.state.currentMessage).toEqual('');
   });
 
   it('loads data from API', () => {

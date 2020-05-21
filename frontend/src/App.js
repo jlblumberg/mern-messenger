@@ -8,6 +8,7 @@ const PORT = 'http://localhost:3000';
 class MessageApp extends Component {
   constructor() {
     super();
+    this.messageFormRef = React.createRef();
     this.state = {
       messages: []
     };
@@ -32,6 +33,7 @@ class MessageApp extends Component {
   getAllMessages = () => {
     axios.get(`${PORT}/`)
     .then((result) => {
+      console.log(result.data)
       this.setMessages(result.data)
     })
     .catch((err) => {
@@ -70,7 +72,7 @@ class MessageApp extends Component {
           error={this.state.error}
         />
         <MessageForm
-          ref='messageFormRef'
+          ref={this.messageFormRef}
           submitMessage={this.submitMessage}
         />
         <MessageList

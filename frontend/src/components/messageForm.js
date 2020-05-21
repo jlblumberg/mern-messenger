@@ -3,6 +3,7 @@ import React from 'react'
 class MessageForm extends React.Component {
   constructor() {
     super();
+    this.formRef = React.createRef();
     this.state = {
       currentMessage: ''
     };
@@ -23,7 +24,7 @@ class MessageForm extends React.Component {
   render() {
     return (
       <form
-        ref='formRef'
+        ref={this.formRef}
         onSubmit={(e) => this.processSubmit(e)}
       >
         <textarea
