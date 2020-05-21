@@ -27,5 +27,12 @@ describe('List', () => {
     expect(component.find('ul#message_list').childAt(0).exists('button#delete')).toBe(true);
   });
 
+  it('has an update button for each message', () => {
+    const component = shallow(<MessageList
+      messages={mockMessages}
+      loaded={true}
+    />);
+    expect(component.find('ul#message_list').childAt(0).find('#update').text()).toBe('update');
+  });
   
 })
