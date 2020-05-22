@@ -34,29 +34,31 @@ describe("message API endpoint tests", function () {
   }); 
 
   it('gets all messages', (done) => {
-    const res = request(MessageApp).get('/');
+    const res = request(MessageApp)
+      .get('/')
     res.expect(200)
       .end((err, res) => {
         if (err) {
           return done(err);
         };
-        // id = res.body[0]._id;
+        id = res.body[0]._id;
         expect(res.body.length).to.equal(1);
         expect(res.body[0].content).to.equal('Hi world');
         done();
       });
   });
 
-  it('gets a single message', (done) => {
-    const res = request(MessageApp).get('/message/1')
+  it("gets a single message", function(done) {
+    const res = request(MessageApp)
+    .get(`/message/${id}`)
     res.expect(200)
-      .end((err, res) => {
-        if (err) {
-          return done(err);
-        }
-        expect(res.body.id).to.equal(1)
-        done()
-      })
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+      expect(res.body.content).to.equal("Hi world")
+      done()
+    })
   })
 
   it('updates a message', (done) => {
