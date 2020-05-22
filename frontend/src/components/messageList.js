@@ -2,25 +2,55 @@ import React, {Component} from 'react';
 
 class MessageList extends Component {
 
+  constructor() {
+    super()
+    this.state = {
+      editMode: {
+        id: null,
+        content: null
+      }
+    }
+  }
+
+  toggleUpdate(message) {
+    this.setState({
+      editMode: {
+        id: message.id,
+        content: message.content
+      }
+    })
+  }
+
   formatMessage(message) {
+    let updateButton = <button
+      onClick={() => this.toggleUpdate(message)}
+      id='update'>
+      update
+    </button>
+
+    if (message.id === this.state.editMode.id) {
+      updateButton = (<button
+        onClick={() => this.toggleUpdate(!message)}
+        id='send'>
+        Send Update
+      </button>)
+    }
+
     return <li 
-        className='message'
-        key={message.id}>
-      {message.content}
-      <br/>
-      {new Date(message.date).toLocaleTimeString('en-UK')}
-      <br/>
-      {new Date(message.date).toLocaleDateString('en-UK')}
-      <br/>
-      <button
-        id='delete'
-        onClick={() => this.props.handleDelete(message.id)}>
-        delete
-      </button>
-      <button
-        id='update'>
-        update
-      </button>
+      className='message'
+      key={message.id}>
+        {message.content}
+        <br/>
+        {new Date(message.date).toLocaleTimeString('en-UK')}
+        <br/>
+        {new Date(message.date).toLocaleDateString('en-UK')}
+        <br/>
+        <button
+          id='delete'
+          onClick={() => this.props.handleDelete(message.id)}>
+          delete
+        </button>
+        {updateButton}
     </li>
   }
 

@@ -57,7 +57,7 @@ class MessageApp extends Component {
       id: id
     })
       .then((result) => {
-        this.getAllMessages()
+        this.setMessages(result.data)
       })
       .catch((err) => {
         this.setError(err.response);
