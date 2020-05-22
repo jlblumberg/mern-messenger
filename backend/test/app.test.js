@@ -66,7 +66,7 @@ describe("message API endpoint tests", function () {
       content: 'Hello World'
     }
     const res = request(MessageApp)
-      .put('/update/1')
+      .put(`/update/${id}`)
       .send(data)
       .set('Accept', 'application/json')
     res.expect(200)
@@ -74,21 +74,21 @@ describe("message API endpoint tests", function () {
         if (err) {
           return done(err)
         }
-        expect(res.body[0].content).to.equal('Hello World')
+        expect(res.body.content).to.equal('Hello World')
         done()
       })
   })
 
   it('deletes a message', (done) => {
       const res = request(MessageApp)
-        .delete('/delete/1')
+        .delete(`/delete/${id}`)
         .set('Accept', 'application/json');
       res.expect(200)
         .end((err, res) => {
           if (err) {
             return done(err);
           };
-          expect(res.body.length).to.equal(0);
+          expect(res.body.deletedCount).to.equal(1);
           done();
         });
     });
@@ -129,13 +129,13 @@ describe("message api errors correctly", () => {
 
   it('errors if cant find single message', done => {
     const res = request(MessageApp)
-      .get('/message/1')
+      .get('/message/5e3488081b8bfa79a6625542')
     res.expect(404)
       .end((err, res) => {
         if (err) {
           return done(err)
         }
-        expect(res.body).to.equal('No messages in database')
+        expect(res.body).to.equal('Message not found in database')
         done()
       })
   })
@@ -145,7 +145,7 @@ describe("message api errors correctly", () => {
       content: 'Hello World'
     }
     const res = request(MessageApp)
-      .put('/update/0')
+      .put('/update/5e3488081b8bfa79a6625542')
       .send(data)
       .set('Accept', 'application/json')
     res.expect(404)
@@ -153,7 +153,7 @@ describe("message api errors correctly", () => {
         if (err) {
           return done(err)
         }
-        expect(res.body).to.equal('You can\'t post an empty message')
+        expect(res.body).to.equal('Message not found in database')
         done()
       })
   })
@@ -163,7 +163,7 @@ describe("message api errors correctly", () => {
       id: 0
     };
     const res = request(MessageApp)
-      .delete('/delete/0')
+      .delete('/delete/5e3488081b8bfa79a6625542')
       .send(data)
       .set('Accept', 'application/json')
     res.expect(404)
