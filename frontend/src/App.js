@@ -7,11 +7,11 @@ const PORT = 'http://localhost:3000';
 
 class MessageApp extends Component {
   constructor() {
-    super();
+    super()
     this.messageFormRef = React.createRef();
     this.state = {
       messages: []
-    };
+    }
   }
 
   setError(error) {
@@ -19,7 +19,7 @@ class MessageApp extends Component {
       error: error
     })
   }
-  
+
   setMessages(messages) {
     this.setState({
       messages: messages
@@ -27,29 +27,29 @@ class MessageApp extends Component {
   }
 
   componentDidMount() {
-    this.getAllMessages();
+    this.getAllMessages()
   }
 
   getAllMessages = () => {
     axios.get(`${PORT}/`)
-    .then((result) => {
-      this.setMessages(result.data)
-    })
-    .catch((err) => {
-      this.setError(err)
-    })
+      .then((result) => {
+        this.setMessages(result.data)
+      })
+      .catch((err) => {
+        this.setError(err)
+      })
   }
 
   submitMessage = (data) => {
     axios.post(`${PORT}/message`, {
       content: data
     })
-    .then(() => {
-      this.getAllMessages()
-    })
-    .catch((err) => {
-      this.setError(err)
-    })
+      .then(() => {
+        this.getAllMessages()
+      })
+      .catch((err) => {
+        this.setError(err)
+      })
   }
 
   deleteMessage = (id) => {
@@ -57,10 +57,10 @@ class MessageApp extends Component {
       id: id
     })
       .then((result) => {
-        this.setMessages(result.data)
+        this.getAllMessages()
       })
       .catch((err) => {
-        this.setError(err.response);
+        this.setError(err);
       })
   }
 
@@ -69,7 +69,7 @@ class MessageApp extends Component {
       content: content
     })
       .then((result) => {
-        this.handleSuccess(result.data)
+        this.getAllMessages()
       })
       .catch((err) => {
         this.setError(err);
@@ -77,8 +77,8 @@ class MessageApp extends Component {
   }
 
   render() {
-    return(
-      <div className='App'>
+    return (
+      <div>
         <ErrorHandler
           error={this.state.error}
         />

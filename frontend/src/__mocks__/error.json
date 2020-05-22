@@ -1,1 +1,5 @@
-"error text for mock"
+{
+  "response": {
+    "data": "error text for mock"
+  }
+}
