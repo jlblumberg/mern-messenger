@@ -1,9 +1,18 @@
 import request from 'supertest'
+import mongoose from "mongoose"
 import { expect } from 'chai';
 import MessageApp from '../app.js'
+let data;
 
-describe('MessageApp Tests', () => {
-  let data;
+describe("message API endpoint tests", function () {
+
+  before(function (done) {
+    mongoose.connect('mongodb://localhost/testMessages', { useNewUrlParser: true, useFindAndModify: false }, function () {
+      mongoose.connection.db.dropDatabase(function () {
+        done()
+      })
+    })
+  })
 
   it('posts a message', (done) => {
     data = {
@@ -18,9 +27,7 @@ describe('MessageApp Tests', () => {
         if (err) {
           return done(err);
         };
-        expect(res.body.length).to.equal(1);
-        expect(res.body[0].id).to.equal(1);
-        expect(res.body[0].content).to.equal('Hi world');
+        expect(res.body.content).to.equal('Hi world');
         done();
       });
   }); 
