@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import { expect } from 'chai';
 import MessageApp from '../app.js'
 let data;
+let id;
 
 describe("message API endpoint tests", function () {
 
@@ -39,8 +40,8 @@ describe("message API endpoint tests", function () {
         if (err) {
           return done(err);
         };
+        // id = res.body[0]._id;
         expect(res.body.length).to.equal(1);
-        expect(res.body[0].id).to.equal(1);
         expect(res.body[0].content).to.equal('Hi world');
         done();
       });
