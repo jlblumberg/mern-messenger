@@ -35,12 +35,13 @@ describe('List', () => {
     expect(component.find('ul#message_list').childAt(0).find('#update').text()).toBe('update');
   });
 
-  it('clicking update changes button text', () => {
+  it('clicking update toggles edit mode', () => {
     const component = mount(<MessageList
       messages={mockMessages}
       loaded={true}
-    />);
+    />)
     component.find('ul#message_list').childAt(0).find('#update').simulate('click');
+    expect(component.find('ul#message_list').childAt(0).find('#updateBox').text()).toBe('Hello')
     expect(component.find('ul#message_list').childAt(0).find('#send').text()).toBe('Send Update')
   });
   

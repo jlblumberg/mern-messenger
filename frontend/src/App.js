@@ -64,6 +64,18 @@ class MessageApp extends Component {
       })
   }
 
+  sendUpdate = (id, content) => {
+    axios.put(`${PORT}/update/${id}`, {
+      content: content
+    })
+      .then((result) => {
+        this.handleSuccess(result.data)
+      })
+      .catch((err) => {
+        this.setError(err);
+      })
+  }
+
   render() {
     return(
       <div className='App'>
@@ -77,6 +89,7 @@ class MessageApp extends Component {
         <MessageList
           messages={this.state.messages}
           handleDelete={this.deleteMessage}
+          sendUpdate={this.sendUpdate}
         />
       </div>
     );
