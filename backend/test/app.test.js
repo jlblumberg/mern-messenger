@@ -48,17 +48,17 @@ describe("message API endpoint tests", function () {
       });
   });
 
-  it("gets a single message", function(done) {
+  it('gets a single message', (done) => {
     const res = request(MessageApp)
-    .get(`/message/${id}`)
+      .get(`/message/${id}`)
     res.expect(200)
-    .end(function(err, res) {
-      if (err) {
-        return done(err)
-      }
-      expect(res.body.content).to.equal("Hi world")
-      done()
-    })
+      .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        expect(res.body.content).to.equal("Hi world")
+        done()
+      })
   })
 
   it('updates a message', (done) => {
