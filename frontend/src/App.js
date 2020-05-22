@@ -3,7 +3,7 @@ import MessageForm from './components/messageForm';
 import MessageList from './components/messageList';
 import ErrorHandler from './components/errorHandler';
 import axios from 'axios';
-const PORT = 'http://localhost:3000';
+const URL = 'http://localhost:5000';
 
 class MessageApp extends Component {
   constructor() {
@@ -31,7 +31,7 @@ class MessageApp extends Component {
   }
 
   getAllMessages = () => {
-    axios.get(`${PORT}/`)
+    axios.get(`${URL}/`)
       .then((result) => {
         this.setMessages(result.data)
       })
@@ -41,7 +41,7 @@ class MessageApp extends Component {
   }
 
   submitMessage = (data) => {
-    axios.post(`${PORT}/message`, {
+    axios.post(`${URL}/message`, {
       content: data
     })
       .then(() => {
@@ -53,7 +53,7 @@ class MessageApp extends Component {
   }
 
   deleteMessage = (id) => {
-    axios.delete(`${PORT}/delete/${id}`, {
+    axios.delete(`${URL}/delete/${id}`, {
       id: id
     })
       .then((result) => {
@@ -65,7 +65,7 @@ class MessageApp extends Component {
   }
 
   sendUpdate = (id, content) => {
-    axios.put(`${PORT}/update/${id}`, {
+    axios.put(`${URL}/update/${id}`, {
       content: content
     })
       .then((result) => {
