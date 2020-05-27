@@ -72,8 +72,8 @@ describe('App', () => {
     const component = await mount(<MessageApp />);
     await component.update();
     await component.find('div#message_list').childAt(0).find('#update').simulate('click');
-    expect(component.find('div#message_list').childAt(0).find('#send').text()).toBe('Send Update')
-    component.find('div#message_list').childAt(0).find('#send').simulate('click')
+    expect(component.find('#send').text()).toBe('Send Update')
+    component.find('#send').simulate('click')
     expect(mockAxios.put).toHaveBeenCalledWith("http://localhost:5000/update/1", { "content": "Hello" });
     expect(component.find('textarea').text()).toEqual('');
   });
