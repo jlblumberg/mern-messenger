@@ -20,7 +20,7 @@ In order to persist messages across reloads, the app makes use of MongoDB. In or
 ### Running the site
 
 Development:
-- Start the Mongo connection with `brew services run mongodb-community`.
+- Start the MongoDB connection with `brew services run mongodb-community`.
 - Run the frontend server in one terminal window, from the frontend directory, with the command `npm start`. Run the backend server in another terminal window, from the backend directory, with `npm start`.
 - Visit `http://localhost:3000` to use the site.
 
@@ -48,12 +48,13 @@ Testing:
 
 ## <a name="Example_use">Example use</a>
 
-Some screenshots of the different functionality of the site:
+You can see a screenshot of the site in use below. You can add posts, and update or delete existing posts. 
+
+![screenshot](https://i.imgur.com/rHYrzry.png)
 
 ## <a name="Future_work">Future work</a>
 
 On a revisit of the project, I would like to add the following:
 - CI & CD
 - On the CD point, production deployment
-- Styling
 - Authentication
