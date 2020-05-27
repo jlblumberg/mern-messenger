@@ -28,9 +28,11 @@ class MessageList extends Component {
 
   formatMessage(message) {
     let content = message.content
-    let updateButton = <button className='btn btn-info'
-      onClick={() => this.toggleUpdate(message)}
-      id='update'>
+    let updateButton = <button 
+      className='btn btn-info'
+      id='update'
+        onClick={() => this.toggleUpdate(message)}
+      >
       update
     </button>
 
@@ -56,8 +58,8 @@ class MessageList extends Component {
       </button>)
     }
 
-    return <div className='post card mb-3 border-secondary'>
-      <div className='card-body' key={message._id}>
+    return <div className='post card mb-3 border-secondary' key={message._id}>
+      <div className='card-body'>
         <div className='card-title'>
           {content}
         </div>
@@ -81,7 +83,7 @@ class MessageList extends Component {
 
   render() {
     if (!this.props.messages) {
-      return <ul id='message_list'>no messages</ul>
+      return <div id='message_list'>no messages</div>
     }
     if (this.props.messages) {
       return (

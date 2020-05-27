@@ -44,7 +44,7 @@ describe('App', () => {
 
   it('has a message list', () => {
     const component = mount(<MessageApp />);
-    expect(component.exists('ul#message_list')).toBe(true);
+    expect(component.exists('div#message_list')).toBe(true);
   });
 
   it('posts data and clears message box on submit', () => {
@@ -63,7 +63,7 @@ describe('App', () => {
   it('removes message on delete', async () => {
     const component = await mount(<MessageApp />);
     await component.update();
-    await component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
+    await component.find('div#message_list').childAt(0).find('#delete').simulate('click');
     await component.update();
     expect(mockAxios.delete).toHaveBeenCalledWith("http://localhost:5000/delete/1", { "id": 1 });
   });
@@ -71,9 +71,9 @@ describe('App', () => {
   it('updates message on update', async () => {
     const component = await mount(<MessageApp />);
     await component.update();
-    await component.find('ul#message_list').childAt(0).find('#update').simulate('click');
-    expect(component.find('ul#message_list').childAt(0).find('#send').text()).toBe('Send Update')
-    component.find('ul#message_list').childAt(0).find('#send').simulate('click')
+    await component.find('div#message_list').childAt(0).find('#update').simulate('click');
+    expect(component.find('div#message_list').childAt(0).find('#send').text()).toBe('Send Update')
+    component.find('div#message_list').childAt(0).find('#send').simulate('click')
     expect(mockAxios.put).toHaveBeenCalledWith("http://localhost:5000/update/1", { "content": "Hello" });
     expect(component.find('textarea').text()).toEqual('');
   });
@@ -124,7 +124,7 @@ describe('App', () => {
       loaded: true
     })
     await component.update()
-    await component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
+    await component.find('div#message_list').childAt(0).find('#delete').simulate('click');
     await component.update()
     expect(component.state().error).toEqual({ "response": { "data": "error text for mock" } });
     expect(component.find('#error').text()).toBe('Error: error text for mock');
@@ -137,9 +137,9 @@ describe('App', () => {
       loaded: true
     })
     await component.update()
-    await component.find('ul#message_list').childAt(0).find('#update').simulate('click')
-    expect(component.find('ul#message_list').childAt(0).find('#send').text()).toBe('Send Update')
-    component.find('ul#message_list').childAt(0).find('#send').simulate('click')
+    await component.find('div#message_list').childAt(0).find('#update').simulate('click')
+    expect(component.find('div#message_list').childAt(0).find('#send').text()).toBe('Send Update')
+    component.find('div#message_list').childAt(0).find('#send').simulate('click')
     expect(component.state().error).toEqual({ "response": { "data": "error text for mock" } });
     expect(component.find('#error').text()).toBe('Error: error text for mock');
   });
