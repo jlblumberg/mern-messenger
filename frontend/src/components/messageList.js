@@ -70,7 +70,7 @@ class MessageList extends Component {
         </div>
         <button
           id='delete'
-          className='btn btn-info'
+          className='btn btn-info mr-1'
           onClick={() => this.props.handleDelete(message._id)}>
           delete
         </button>

@@ -29,12 +29,12 @@ class MessageForm extends React.Component {
             ref={this.formRef}
             onSubmit={(e) => this.processSubmit(e)}
           >
-            <textarea
+            Enter a new message
+            <textarea className='form-control mb-2'
               onChange={(e) => this.changeMessageValue(e.target.value)}
               value={this.state.currentMessage}
               id='message_box'>
             </textarea>
-            <br/>
             <button
               className='btn btn-info'
               type="submit"
