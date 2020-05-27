@@ -28,7 +28,7 @@ class MessageList extends Component {
 
   formatMessage(message) {
     let content = message.content
-    let updateButton = <button
+    let updateButton = <button className='btn btn-info'
       onClick={() => this.toggleUpdate(message)}
       id='update'>
       update
@@ -49,29 +49,34 @@ class MessageList extends Component {
       >
       </textarea>)
 
-      updateButton = (<button
+      updateButton = (<button className='btn btn-info'
         onClick={() => this.sendUpdate(message)}
         id='send'>
         Send Update
       </button>)
     }
 
-    return <li 
-      className='message'
-      key={message._id}>
-        {content}
+    return <div className='post card mb-3 border-secondary'>
+      <div className='card-body' key={message._id}>
+        <div className='card-title'>
+          {content}
+        </div>
         <br/>
-        {new Date(message.date).toLocaleTimeString('en-UK')}
-        <br/>
-        {new Date(message.date).toLocaleDateString('en-UK')}
-        <br/>
+        <div className='card-subtitle mb-2 text-muted'>
+          {new Date(message.date).toLocaleTimeString('en-UK')}
+          <br/>
+          {new Date(message.date).toLocaleDateString('en-UK')}
+          <br/>
+        </div>
         <button
           id='delete'
+          className='btn btn-info'
           onClick={() => this.props.handleDelete(message._id)}>
           delete
         </button>
         {updateButton}
-    </li>
+      </div>
+    </div>
   }
 
   render() {
@@ -80,12 +85,12 @@ class MessageList extends Component {
     }
     if (this.props.messages) {
       return (
-        <div>
-          <ul id='message_list'>
-            {this.props.messages.map(message => {
+        <div className='container pt-3' style={{maxWidth: 600}}>
+          <div id='message_list'>
+            {this.props.messages.reverse().map(message => {
               return this.formatMessage(message)
             })}
-          </ul>
+          </div>
         </div>
       )
     }
