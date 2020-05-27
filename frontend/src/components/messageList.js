@@ -28,9 +28,11 @@ class MessageList extends Component {
 
   formatMessage(message) {
     let content = message.content
-    let updateButton = <button
-      onClick={() => this.toggleUpdate(message)}
-      id='update'>
+    let updateButton = <button 
+      className='btn btn-info'
+      id='update'
+        onClick={() => this.toggleUpdate(message)}
+      >
       update
     </button>
 
@@ -49,43 +51,48 @@ class MessageList extends Component {
       >
       </textarea>)
 
-      updateButton = (<button
+      updateButton = (<button className='btn btn-info'
         onClick={() => this.sendUpdate(message)}
         id='send'>
         Send Update
       </button>)
     }
 
-    return <li 
-      className='message'
-      key={message._id}>
-        {content}
+    return <div className='post card mb-3 border-secondary' key={message._id}>
+      <div className='card-body'>
+        <div className='card-title'>
+          {content}
+        </div>
         <br/>
-        {new Date(message.date).toLocaleTimeString('en-UK')}
-        <br/>
-        {new Date(message.date).toLocaleDateString('en-UK')}
-        <br/>
+        <div className='card-subtitle mb-2 text-muted'>
+          {new Date(message.date).toLocaleTimeString('en-UK')}
+          <br/>
+          {new Date(message.date).toLocaleDateString('en-UK')}
+          <br/>
+        </div>
         <button
           id='delete'
+          className='btn btn-info mr-1'
           onClick={() => this.props.handleDelete(message._id)}>
           delete
         </button>
         {updateButton}
-    </li>
+      </div>
+    </div>
   }
 
   render() {
     if (!this.props.messages) {
-      return <ul id='message_list'>no messages</ul>
+      return <div id='message_list'>no messages</div>
     }
     if (this.props.messages) {
       return (
-        <div>
-          <ul id='message_list'>
-            {this.props.messages.map(message => {
+        <div className='container pt-3' style={{maxWidth: 600}}>
+          <div id='message_list'>
+            {this.props.messages.reverse().map(message => {
               return this.formatMessage(message)
             })}
-          </ul>
+          </div>
         </div>
       )
     }

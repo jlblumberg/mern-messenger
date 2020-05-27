@@ -23,23 +23,28 @@ class MessageForm extends React.Component {
   
   render() {
     return (
-      <form
-        ref={this.formRef}
-        onSubmit={(e) => this.processSubmit(e)}
-      >
-        <textarea
-          onChange={(e) => this.changeMessageValue(e.target.value)}
-          value={this.state.currentMessage}
-          id='message_box'>
-        </textarea>
-        <br/>
-        <button
-          type="submit"
-          name="Submit"
-          id="submit">
-          Submit
-        </button>
-      </form>
+      <div className='container pt-5' style={{ maxWidth: 600 }}>
+        <div className='form-group'>
+          <form
+            ref={this.formRef}
+            onSubmit={(e) => this.processSubmit(e)}
+          >
+            <h5>Enter a new message</h5>
+            <textarea className='form-control mt-2 mb-2'
+              onChange={(e) => this.changeMessageValue(e.target.value)}
+              value={this.state.currentMessage}
+              id='message_box'>
+            </textarea>
+            <button
+              className='btn btn-info'
+              type="submit"
+              name="Submit"
+              id="submit">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
     );
   }
 }
